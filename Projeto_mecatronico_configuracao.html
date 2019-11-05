@@ -1,0 +1,272 @@
+-.-<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script src="pegar.js"></script>
+  <meta charset="UTF-8">
+
+</head>
+
+<body>
+
+
+
+<b>Montando seu layout!</b>
+<br/>
+
+<table>
+    <tr><td>Nome do usuário:</td>
+        <td colspan="3">
+            <textarea id="inputTextToSave" cols="15" rows="1"></textarea>
+        </td>
+    </tr>
+ <br/>
+
+</table>
+
+Preencha as 4 aplicações que te agradam mais...
+<br/>
+
+<table>
+<!--
+<form action="/action_page.php">
+Nome de usuário <input type="text" name="firstname" id="firstname" size="20">
+
+ o br para pular linha
+-->
+
+  <span>
+  <br/>
+  <img src="Imagem1.jpg" alt="Teste">
+  <br/>
+   <b>Bolsa</b>
+  <select id="position_of_stocks">
+    <option value="Vazio"></option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select> <br/>
+
+ Selecione as ações que deseja <br/>
+ <checklist id="stocks"></checklist>
+ <form action="/action_page.php">
+  <input type="checkbox" name="stocks" value="Samsung"> Samsung<br>
+  <input type="checkbox" name="stocks" value="Daimler"> Daimler<br>
+  <input type="checkbox" name="stocks" value="Microsoft"> Microsoft<br>
+  <input type="checkbox" name="stocks" value="Apple"> Apple <br>
+      <!-- <p> -->
+        <!-- <input type="button" onclick='saveTextAsFile()' value="Print Selected Items"/> -->
+    <!-- </p> -->
+ </form>
+  <br/>
+
+  <b>E-mail</b>
+  <select id="position_of_email">
+    <option value="Vazio"></option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>  <br/>
+Link para entrar no e-mail:
+            <textarea id="inputlinkToSave" cols="20" rows="1"></textarea>
+<br/>
+
+  <br/>
+
+    <class><b>Clima</b></class>
+      <select id="position_of_weather">
+        <option value="Vazio"></option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select> <br/>
+Selecione a cidade que deseja <br/>
+ <checklist id="clima"></checklist>
+   <form action="/action_page.php">
+     <input type="checkbox" name="clima" value="Sao Paulo"> São Paulo<br>
+     <input type="checkbox" name="clima" value="Rio de Janeiro"> Rio de Janeiro<br>
+  <!-- <p> -->
+        <!-- <input type="button" onclick='saveTextAsFile()' value="Print Selected Items"/> -->
+    <!-- </p> -->
+  </form>
+<br/>
+
+  <b>Noticias</b>
+
+  <select id="position_of_notices">
+    <option value="Vazio"></option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>  <br/>
+
+ Selecione a fonte da notocia <br/>
+  <checklist id="noticia"></checklist>
+ <form action="/action_page.php">
+ <input type="checkbox" name="noticia" value="New York Times"> New York Times<br>
+ <input type="checkbox" name="noticia" value="Globo"> Globo<br>
+ </form>
+  <br/>
+
+   <b>Agenda</b>
+  <select id="position_of_calendar">
+    <option value="Vazio"></option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>  <br/>
+Link para sincronizar a agenda:
+            <textarea id="inputlinkToSynchronize" cols="20" rows="1"></textarea><br/>
+ <br/>
+
+    <b>Mapa</b>
+  <select id="position_of_maps">
+    <option value="Vazio"></option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>  <br/>
+<br/>
+De:
+ <textarea id="inputlinkToInicialPosition" cols="20" rows="1"></textarea><br/>
+ Para:
+   <textarea id="inputlinkToFinalPosition" cols="20" rows="1"></textarea><br/>
+ <br/>
+
+</span>
+
+    </select>
+</td>
+    <tr>
+
+        <td><button onclick="saveTextAsFile()">Salvar</button></td>
+    </tr>
+
+  <br><br>
+
+</table>
+
+  <p id="valorDigitado"></p>
+
+
+</form>
+
+<script type="text/javascript">
+
+function saveTextAsFile()
+{
+
+  var textToSave_name = document.getElementById("inputTextToSave").value;
+ 
+// stocks
+var items=document.getElementsByName('stocks');
+var selected_stocks="";
+    for(var i=0; i<items.length; i++){
+        if(items[i].type=='checkbox' && items[i].checked==true)
+          selected_stocks+=",[\"" + items[i].value+"\"]";
+}
+
+var position_of_stocks = document.getElementById("position_of_stocks").value;
+var config_of_stocks = "{ module: \"MMM-AVStock\",";
+var position_of_stocks2 = "position: \"" + position_of_stocks + "\",";
+var acoes = config_of_stocks + position_of_stocks2 + "apiKey : \"YOUR_ALPHAVANTAGE_KEY\"," + "symbols: " + selected_stocks.substring(1, 50);
+
+// Clima
+var itens2=document.getElementsByName('clima');
+var selected_clima="";
+    for(var i=0; i<itens2.length; i++){
+        if(itens2[i].type=='checkbox' && itens2[i].checked==true)
+          selected_clima+=",[\"" + itens2[i].value+"\"]";
+      }
+
+var position_of_weather = document.getElementById("position_of_weather").value;
+var config_of_weather = "{ module: \" ,";
+var position_of_weather2 = "position: \"" + position_of_weather + "\" , ";
+      var clima = config_of_weather + position_of_weather2 + selected_clima.substring(1,300);
+
+// Noticia
+var itens3=document.getElementsByName('noticia');
+var selected_noticia="";
+    for(var i=0; i<itens3.length; i++){
+        if(itens3[i].type=='checkbox' && itens3[i].checked==true)
+          selected_noticia+=",[\"" + itens3[i].value+"\"]";
+    }
+
+var position_of_notices = document.getElementById("position_of_notices").value;
+var config_of_notices = "{ module: \" ,";
+var position_of_notices2 = "position: \"" + position_of_notices + "\" , ";
+var notice = config_of_notices + position_of_notices2 + selected_noticia.substring(1,300);
+
+ // email
+var position_of_email = document.getElementById("position_of_email").value;
+var config_of_email = "{ module: \" \",";
+var link_email = document.getElementById("inputlinkToSave").value;
+var position_of_email2 = "position: \"" + position_of_email + "\",";
+      var email = config_of_email + position_of_email2 + link_email;
+
+ // agenda
+var position_of_calendar = document.getElementById("position_of_calendar").value;
+var config_of_calendar = "{ module: \" ,";
+var link_agenda = document.getElementById("inputlinkToSynchronize").value;
+var position_of_calendar2 = "position  \"" + position_of_calendar + "\",";
+      var calendar= config_of_calendar + position_of_calendar2 + link_agenda;
+
+
+ // mapa
+var position_of_maps = document.getElementById("position_of_maps").value;
+var config_of_maps = "{ module: \" ,";
+var inicialposition = document.getElementById("inputlinkToInicialPosition").value;
+var finalposition = document.getElementById("inputlinkToFinalPosition").value;
+var position_of_maps2 = "position  \"" + position_of_maps + "\",";
+      var maps = config_of_email + position_of_maps2 + inicialposition + finalposition;
+
+
+
+var ConcatOfVariables = 'Bolsa: ' + acoes  + ' ' +'e-mail' + ' ' + email + ' ' + 'Clima: ' + clima + ' ' + selected_clima + 'Noticias: ' + notice + 'Agenda: ' + calendar + ' ' + 'Mapa: ' + maps;
+
+
+    var textToSaveAsBlob = new Blob([ConcatOfVariables], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = "ConfigOf" + textToSave_name + ".txt";
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+
+function loadFileAsText()
+{
+    var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+    var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent)
+    {
+        var textFromFileLoaded = fileLoadedEvent.target.result;
+        document.getElementById("inputTextToSave").value = textFromFileLoaded;
+    };
+    fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+</script>
+
+
+</body>
+</html>
